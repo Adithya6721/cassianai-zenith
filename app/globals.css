@@ -1,0 +1,405 @@
+@import "tailwindcss";
+
+/* ── Theme variables ────────────────────────── */
+
+html,
+.dark {
+  --accent: #22c55e;
+  --accent-dim: #166534;
+  --accent-rgb: 34, 197, 94;
+  --bg: #000000;
+  --bg-surface: #0a0a0a;
+  --bg-surface-hover: #141414;
+  --fg: #e4e4e7;
+  --fg-muted: #71717a;
+  --border-color: #1e1e1e;
+  --dot-color: #ffffff08;
+  --scrollbar-thumb: #1e1e1e;
+  --scrollbar-hover: #2a2a2a;
+  color-scheme: dark;
+}
+
+.light {
+  --accent: #ef4444;
+  --accent-dim: #991b1b;
+  --accent-rgb: 239, 68, 68;
+  --bg: #ffffff;
+  --bg-surface: #f5f5f5;
+  --bg-surface-hover: #e8e8e8;
+  --fg: #18181b;
+  --fg-muted: #71717a;
+  --border-color: #e4e4e7;
+  --dot-color: #00000008;
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-hover: #a1a1aa;
+  color-scheme: light;
+}
+
+/* ── Tailwind v4 theme tokens ───────────────── */
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-neon: var(--accent);
+  --color-neon-dim: var(--accent-dim);
+  --color-surface: var(--bg-surface);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-border: var(--border-color);
+  --color-muted: var(--fg-muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Base ────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* ── Dot grid background ─────────────────────── */
+
+.bg-dot-grid {
+  background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Neon glow utilities ─────────────────────── */
+
+.glow-neon {
+  box-shadow:
+    0 0 8px rgba(var(--accent-rgb), 0.25),
+    0 0 24px rgba(var(--accent-rgb), 0.12),
+    0 0 48px rgba(var(--accent-rgb), 0.06);
+}
+
+.glow-neon-sm {
+  box-shadow:
+    0 0 4px rgba(var(--accent-rgb), 0.19),
+    0 0 12px rgba(var(--accent-rgb), 0.08);
+}
+
+.text-glow-neon {
+  text-shadow:
+    0 0 8px rgba(var(--accent-rgb), 0.38),
+    0 0 20px rgba(var(--accent-rgb), 0.19);
+}
+
+/* ── Scrollbar ───────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+}
+
+/* ── Transitions ─────────────────────────────── */
+
+.transition-base {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-theme {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* ── Fade-in animation ───────────────────────── */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+
+/* ── Pulse ring for welcome button ───────────── */
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* ── Logo glow pulse ─────────────────────────── */
+
+@keyframes logo-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(var(--accent-rgb), 0.4),
+      0 0 30px rgba(var(--accent-rgb), 0.2),
+      0 0 60px rgba(var(--accent-rgb), 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 20px rgba(var(--accent-rgb), 0.6),
+      0 0 50px rgba(var(--accent-rgb), 0.35),
+      0 0 100px rgba(var(--accent-rgb), 0.15);
+  }
+}
+
+.animate-logo-glow {
+  animation: logo-glow 3s ease-in-out infinite;
+}
+
+/* ── Easter egg orbit ────────────────────────── */
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+}
+
+.animate-orbit {
+  animation: orbit 4s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit 5s linear infinite reverse;
+}
+
+.animate-orbit-slow {
+  animation: orbit 7s linear infinite;
+}
+
+/* ── Narnia shield glow (welcome page) ───── */
+
+@keyframes narnia-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(var(--accent-rgb), 0.15));
+    opacity: 0.3;
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.4));
+    opacity: 0.55;
+  }
+}
+
+.animate-narnia-glow {
+  animation: narnia-glow 4s ease-in-out infinite;
+}
+/* ═══════════════════════════════════════════════════════════
+   VISUAL MODES - Customizable Appearance Themes
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CYBERPUNK MODE ────────────────────────────────────────── */
+
+html.mode-cyberpunk.dark {
+  --accent: #a855f7;
+  --accent-dim: #7e22ce;
+  --accent-rgb: 168, 85, 247;
+  --bg: #0a0014;
+  --bg-surface: #15001f;
+  --bg-surface-hover: #200028;
+  --border-color: #3d1a50;
+  --secondary-accent: #06b6d4;
+  --secondary-accent-rgb: 6, 182, 212;
+}
+
+html.mode-cyberpunk.light {
+  --accent: #9333ea;
+  --accent-dim: #6b21a8;
+  --accent-rgb: 147, 51, 234;
+  --bg: #faf5ff;
+  --bg-surface: #f3e8ff;
+  --bg-surface-hover: #e9d5ff;
+  --border-color: #c084fc;
+  --secondary-accent: #0891b2;
+  --secondary-accent-rgb: 8, 145, 178;
+}
+
+html.mode-cyberpunk .glow-neon {
+  box-shadow:
+    0 0 12px rgba(var(--accent-rgb), 0.4),
+    0 0 32px rgba(var(--accent-rgb), 0.2),
+    0 0 64px rgba(var(--accent-rgb), 0.1),
+    0 0 96px rgba(var(--secondary-accent-rgb), 0.08);
+}
+
+html.mode-cyberpunk .text-glow-neon {
+  text-shadow:
+    0 0 12px rgba(var(--accent-rgb), 0.6),
+    0 0 28px rgba(var(--accent-rgb), 0.3),
+    0 0 48px rgba(var(--secondary-accent-rgb), 0.15);
+}
+
+/* ── MINIMAL MODE ──────────────────────────────────────────── */
+
+html.mode-minimal.dark {
+  --accent: #a1a1aa;
+  --accent-dim: #71717a;
+  --accent-rgb: 161, 161, 170;
+  --bg: #0f0f0f;
+  --bg-surface: #171717;
+  --bg-surface-hover: #1f1f1f;
+  --border-color: #2a2a2a;
+}
+
+html.mode-minimal.light {
+  --accent: #52525b;
+  --accent-dim: #3f3f46;
+  --accent-rgb: 82, 82, 91;
+  --bg: #fafafa;
+  --bg-surface: #f4f4f5;
+  --bg-surface-hover: #e4e4e7;
+  --border-color: #d4d4d8;
+}
+
+html.mode-minimal .glow-neon,
+html.mode-minimal .glow-neon-sm {
+  box-shadow: none;
+}
+
+html.mode-minimal .text-glow-neon {
+  text-shadow: none;
+}
+
+html.mode-minimal canvas {
+  opacity: 0 !important;
+}
+
+/* ── COSMIC MODE ───────────────────────────────────────────── */
+
+html.mode-cosmic.dark {
+  --accent: #818cf8;
+  --accent-dim: #4338ca;
+  --accent-rgb: 129, 140, 248;
+  --bg: #0c0a1d;
+  --bg-surface: #151229;
+  --bg-surface-hover: #1e1a35;
+  --border-color: #2d2750;
+  --secondary-accent: #a78bfa;
+  --secondary-accent-rgb: 167, 139, 250;
+}
+
+html.mode-cosmic.light {
+  --accent: #6366f1;
+  --accent-dim: #4f46e5;
+  --accent-rgb: 99, 102, 241;
+  --bg: #f8f7ff;
+  --bg-surface: #ede9fe;
+  --bg-surface-hover: #ddd6fe;
+  --border-color: #c7d2fe;
+  --secondary-accent: #8b5cf6;
+  --secondary-accent-rgb: 139, 92, 246;
+}
+
+html.mode-cosmic .glow-neon {
+  box-shadow:
+    0 0 10px rgba(var(--accent-rgb), 0.3),
+    0 0 28px rgba(var(--accent-rgb), 0.15),
+    0 0 56px rgba(var(--secondary-accent-rgb), 0.08);
+}
+
+html.mode-cosmic .text-glow-neon {
+  text-shadow:
+    0 0 10px rgba(var(--accent-rgb), 0.5),
+    0 0 24px rgba(var(--accent-rgb), 0.25),
+    0 0 40px rgba(var(--secondary-accent-rgb), 0.12);
+}
+
+/* ── MATRIX MODE ───────────────────────────────────────────── */
+
+html.mode-matrix.dark {
+  --accent: #00ff41;
+  --accent-dim: #00b82e;
+  --accent-rgb: 0, 255, 65;
+  --bg: #000000;
+  --bg-surface: #001a0a;
+  --bg-surface-hover: #002d11;
+  --border-color: #004d1a;
+  font-family: 'Courier New', 'Consolas', monospace;
+}
+
+html.mode-matrix.light {
+  --accent: #00cc33;
+  --accent-dim: #009926;
+  --accent-rgb: 0, 204, 51;
+  --bg: #f0fff0;
+  --bg-surface: #d0f0d0;
+  --bg-surface-hover: #b0e0b0;
+  --border-color: #80c080;
+  font-family: 'Courier New', 'Consolas', monospace;
+}
+
+html.mode-matrix .glow-neon {
+  box-shadow:
+    0 0 8px rgba(var(--accent-rgb), 0.35),
+    0 0 20px rgba(var(--accent-rgb), 0.18),
+    0 0 40px rgba(var(--accent-rgb), 0.08);
+}
+
+html.mode-matrix .text-glow-neon {
+  text-shadow:
+    0 0 10px rgba(var(--accent-rgb), 0.6),
+    0 0 22px rgba(var(--accent-rgb), 0.3);
+}
+
+/* Matrix code rain effect */
+@keyframes matrix-rain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* Transition smoothing for mode changes */
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
